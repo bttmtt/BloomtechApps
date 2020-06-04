@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+
+    <style>
+        .dateDropDown {
+            margin-top: 0px;
+            float: left;
+            margin-left: 1.5%;
+        }
+
+        .label-control {
+            margin-bottom: 2px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="container" style="margin-top:20px;">
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <label for="nome" class="label-control">Nome</label>
+                    <input v-model="nome" id="nome" type="text" class="form-control" placeholder="Nome">
+                    <label for="ddn" class="label-control">Data di nascita</label>
+                    <div class="form-row" id="ddn">
+                        <select multiple size="1" v-model="gdn" class="form-control dateDropDown" style="width:24%;">
+                            <option v-for="giorno in giorni" >{{giorno}}</option>
+                        </select>
+                        <select multiple size="1" v-model="mdn" class="form-control dateDropDown" style="width:38.3%;">
+                            <option v-for="mese in mesi">{{mese}}</option>
+                        </select>
+                        <select multiple size="1" v-model="adn" class="form-control dateDropDown" style="width:32%;">
+                            <option v-for="anno in anni">{{anno}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="cognome" class="label-control">Cognome</label>
+                    <input v-model="cognome" id="cognome" type="text" class="form-control" placeholder="Cognome">
+                    <label for="paese" class="label-control">Paese</label>
+                    <select v-model="paese" id="paese" class="form-control">
+                        <option v-for="p in paesi">{{p}}</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <input type="button" v-on:click="showMessage" class="btn btn-primary" value="Submit">
+        </form>
+        <br>
+        <p id="message" style="display: none;">Hey! Mi chiamo {{nome}} {{cognome}}, vivo in {{paese}} e sono nato il {{gdn[0]}} {{mdn[0]}} del {{adn[0]}}.</p>
+        <p id="errorMessage" style="display: none; color:red; background-color: rgb(255, 202, 202);">Errore! Tutti i campi devono essere valorizzati.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                showMessage: function () {
+                    document.getElementById("errorMessage").style.display = "none";
+                    if (this.nome != "" && this.cognome != "" && this.paese != "" && this.gdn != "" && this.mdn != "" && this.adn != "") {
+                        document.getElementById("message").style.display = "block";
+                    } else {
+                        document.getElementById("errorMessage").style.display = "block";
+                    }
+                }
+            },
+            data: {
+                nome: "",
+                cognome: "",
+                paese: "Marocco",
+                gdn: ["01"], //giorno di nascita
+                mdn: ["gennaio"], //mese
+                adn: ["2018"], //anno
+                giorni: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+                mesi: ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"],
+                anni: ["2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1899"],
+                paesi: ["Marocco","Italia", "Mongolia", "Madagascar"],
+            }
+        })
+    </script>
+</body>
+
+</html>

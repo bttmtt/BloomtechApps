@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container" style="margin-top:20px">
+        <h1>To do list</h1>
+        <div id="app-4" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <input v-model="message" placeholder="aggiungi una nuova cosa qui" class="form-control">
+                <div class="input-group-append">
+                    <input class="btn btn-primary" type="button" v-on:click="addElement" value="+">
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center" v-for="todo in todos">
+                    {{ todo.text }}
+                    <input class="btn btn-primary btn-sm" type="button" v-on:click="removeElement(todo)" value="-">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app4 = new Vue({
+            el: '#app-4',
+            data: {
+                todos: [
+                    { text: 'cosa1' },
+                    { text: 'cosa2' },
+                    { text: 'cosa3' }
+                ],
+                message: "",
+            },
+            methods: {
+                addElement: function () {
+                    this.todos.push({ text: this.message });
+                    this.message="";
+                },
+                removeElement: function (todo) {
+                    this.todos.splice(this.todos.indexOf(todo), 1);
+                }
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
